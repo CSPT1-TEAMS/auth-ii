@@ -1,6 +1,11 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+
 
 const db = require('./_config/db');
+
+
 const setupMiddleware = require('./_config/middleware');
 const setupRoutes = require('./_config/routes');
 

@@ -13,4 +13,11 @@ router.get('/', (req, res) => {
     });
 });
 
+router.post('/new', (req, res) => {
+  const user = new User(req.body);
+  user.save()
+    .then( user => res.status(201).json('User Registered!')
+    .catch( err => res.status(500).send(err)))
+  });
+
 module.exports = router;
