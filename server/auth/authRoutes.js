@@ -1,21 +1,20 @@
 const router = require('express').Router();
-// const jwt = require('jsonwebtoken');
-// const SECRET = 'SECRET COOKIE MONSTER'
+const jwt = require('jsonwebtoken');
+const SECRET = 'SECRET COOKIE MONSTER'
 
 const User = require('../users/User');
 
-
-// const makeToken = (user) => {
-//   const payload = {
-//     sub: user._id,
-//     name: user.username,
-//     race: user.race
-//   }
-//   const options = {
-//     expiresIn: '24h'
-//   }
-//   return jwt.sign(payload, SECRET, options)
-// }
+const makeToken = (user) => {
+  const payload = {
+    sub: user._id,
+    name: user.username,
+    race: user.race
+  }
+  const options = {
+    expiresIn: '24h'
+  }
+  return jwt.sign(payload, SECRET, options)
+}
 
 // const verifyToken = (req, res, next) => {
 //   const token = req.headers.authorization;
@@ -27,6 +26,12 @@ const User = require('../users/User');
 //   jwt.verify(token, SECRET, (err, payload) => {
 //     console.log(payload)
 //     //add more code here
+//     if (err) {
+//       res.sendStatus(401);
+//       return;
+//     }
+//     req.jwtpayload = payload;
+//     next();
 //   })
 // }
 
@@ -49,9 +54,10 @@ router.put('/login', (req, res) => {
   User.findOne({ username })
     .then(user => {
       user.validatePassword(password);
-      console.log('RES', res);
+      // console.log('RES', res);
       if (true) {
-        res.status(200).json({ msg: "logged in" })
+        const token = makeToken(user);
+        res.status(200).json({ user, token })
       } else {
         res.status(401).json({ msg: "nope" })
       }
