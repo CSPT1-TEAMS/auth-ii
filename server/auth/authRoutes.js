@@ -1,6 +1,6 @@
 const router = require('express').Router();
-
 const User = require('../users/User');
+const makeToken = require('./jwt');
 
 router.post('/register', function(req, res) {
   User.create(req.body)
@@ -12,5 +12,9 @@ router.post('/register', function(req, res) {
     })
     .catch(err => res.status(500).json(err));
 });
+
+router.put('/login', (req, res) => {
+
+})
 
 module.exports = router;
