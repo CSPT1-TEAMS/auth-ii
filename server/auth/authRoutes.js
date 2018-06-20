@@ -13,8 +13,22 @@ router.post('/register', function(req, res) {
     .catch(err => res.status(500).json(err));
 });
 
-router.put('/login', (req, res) => {
-
+router.post('/login', function(req, res) {
+  const { username, password } = req.body;
+  User.findOne({username})
+    .then(user => {
+      user.validatePassword(password)
+        .then((isMatch) => {
+          if (isMatch) {
+            const token = makeToken(user);
+            res.status(201).json({ user, token })
+          } else {
+            res.status(401).json({msg: 'Else!!!'})
+          }
+        })
+        .catch(err => res.status(401).json({msg: 'Invalid password'}))
+    })
+    .catch(err => res.status(404).json({msg: 'User not found'})) 
 })
 
 module.exports = router;
