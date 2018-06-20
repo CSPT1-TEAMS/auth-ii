@@ -2,6 +2,8 @@ const router = require('express').Router();
 
 const User = require('./User');
 
+
+//put in verify middleware 
 router.get('/', (req, res) => {
   User.find()
     .select('-password')

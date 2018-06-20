@@ -26,8 +26,18 @@ return jwt.sign(payload, SECRET , options)
 
 }
 
-const verifyTOken = () => {
+
+//If token is valid call next,otherwise res send http error
+const verifyToken = (req,res,next) => {
+  let session =  req.headers.session
+  let token = jwt.verify(session,SECRET)
+  if (!token){
+    res.sendStatus(401)
+  }
+  next()
+
   //secret is avail here
+
 }
 
 
