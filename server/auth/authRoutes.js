@@ -16,24 +16,7 @@ const makeToken = (user) => {
   return jwt.sign(payload, SECRET, options)
 }
 
-const verifyToken = (req, res, next) => {
-  const token = req.headers.authorization;
 
-  if (token === undefined) {
-    res.status(401).json({ msg: "You shall not pass" });
-    return;
-  }
-  jwt.verify(token, SECRET, (err, payload) => {
-    console.log(payload)
-    //add more code here
-    if (err) {
-      res.sendStatus(401);
-      return;
-    }
-    req.jwtpayload = payload;
-    next();
-  })
-}
 
 router.post('/register', (req, res) => {
   User.create(req.body)
@@ -46,7 +29,7 @@ router.post('/register', (req, res) => {
     .catch(err => res.status(500).json(err));
 });
 
-router.put('/login', (req, res) => {
+router.post('/login', (req, res) => {
   if (!req.body.username || !req.body.password) {
     res.status(400).json({ msg: "Enter a valid username and password" })
   }
@@ -55,12 +38,11 @@ router.put('/login', (req, res) => {
     .then(user => {
       user.validatePassword(password)
         .then(isMatch => {
-          console.log(isMatch)
           if (isMatch) {
             const token = makeToken(user);
             res.status(200).json({ user, token })
           } else {
-            res.status(401).json({ msg: "nope" })
+            res.status(401).json({ msg: "Username or password incorrect" })
           }
         })
         .catch(err => {
@@ -72,4 +54,4 @@ router.put('/login', (req, res) => {
     })
 })
 
-module.exports = { router, verifyToken };
+module.exports = router;

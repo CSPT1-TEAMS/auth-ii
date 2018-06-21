@@ -1,4 +1,15 @@
-Container {
-    margin: 0 auto;
+#nav {
+    background: rgb(22, 194, 194);
+    min-height: 100px;
     display: block;
+    text-align: center;
+}
+
+.link {
+    color: white;
+    padding: 3%;
+    display: inline-block;
+    font-size: 1rem;
+    text-transform: uppercase;
+    margin-top: 1.5%;
 }
