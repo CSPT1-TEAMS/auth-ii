@@ -16,24 +16,24 @@ const makeToken = (user) => {
   return jwt.sign(payload, SECRET, options)
 }
 
-// const verifyToken = (req, res, next) => {
-//   const token = req.headers.authorization;
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization;
 
-//   if (token === undefined) {
-//     res.status(401).json({ msg: "You shall not pass" });
-//     return;
-//   }
-//   jwt.verify(token, SECRET, (err, payload) => {
-//     console.log(payload)
-//     //add more code here
-//     if (err) {
-//       res.sendStatus(401);
-//       return;
-//     }
-//     req.jwtpayload = payload;
-//     next();
-//   })
-// }
+  if (token === undefined) {
+    res.status(401).json({ msg: "You shall not pass" });
+    return;
+  }
+  jwt.verify(token, SECRET, (err, payload) => {
+    console.log(payload)
+    //add more code here
+    if (err) {
+      res.sendStatus(401);
+      return;
+    }
+    req.jwtpayload = payload;
+    next();
+  })
+}
 
 router.post('/register', (req, res) => {
   User.create(req.body)
@@ -53,18 +53,23 @@ router.put('/login', (req, res) => {
   const { username, password } = req.body;
   User.findOne({ username })
     .then(user => {
-      user.validatePassword(password);
-      // console.log('RES', res);
-      if (true) {
-        const token = makeToken(user);
-        res.status(200).json({ user, token })
-      } else {
-        res.status(401).json({ msg: "nope" })
-      }
-    })
-    .catch(err => {
-      res.sendStatus(500)
+      user.validatePassword(password)
+        .then(isMatch => {
+          console.log(isMatch)
+          if (isMatch) {
+            const token = makeToken(user);
+            res.status(200).json({ user, token })
+          } else {
+            res.status(401).json({ msg: "nope" })
+          }
+        })
+        .catch(err => {
+          res.sendStatus(500)
+        })
+        .catch(err => {
+          res.sendStatus(500);
+        })
     })
 })
 
-module.exports = router;
+module.exports = { router, verifyToken };

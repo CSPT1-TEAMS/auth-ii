@@ -1,0 +1,14 @@
+* {
+    padding: 1%;
+}
+
+Label {
+    font-weight: bolder;
+    font-size: 18px;
+}
+
+.row {
+    border: 1px solid teal;
+    width: 100%;
+    display: block;
+}

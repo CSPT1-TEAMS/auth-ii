@@ -13,4 +13,8 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/users', (req,res) => {
+  
+})
+
 module.exports = router;
