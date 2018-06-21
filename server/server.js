@@ -19,3 +19,7 @@ db.connectTo('authii')
   .catch(err => {
     console.log('\n*** ERROR Connecting to MongoDB, is it running? ***\n', err);
   });
+
+const { makeToken, verifyToken } = require('./authFunctions')
+
+// ☞ 50e06c46-94fb-440a-afde-abb6a317b074

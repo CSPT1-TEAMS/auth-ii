@@ -34,7 +34,7 @@ In this project we'll implement a full authentication workflow (register/login/l
 
 ## Assignment
 
--  [ ] inspect the code to figure out which routes are already implemented and where you need to make changes to add support for JWTs. This will help you practice reading existing code.
+-  [x] inspect the code to figure out which routes are already implemented and where you need to make changes to add support for JWTs. This will help you practice reading existing code.
 
 -  [ ] implement the authentication workflow (register and login) on the server using JSON Web Tokens.
 
