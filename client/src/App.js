@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import { Link, Route } from 'react-router-dom';
 import './App.css';
+import Home from './home.js';
+import Login from './login.js';
+import Register from './register.js';
+
 
 class App extends Component {
   render() {
@@ -10,9 +15,12 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Authentication using JWTs</h1>
         </header>
-        <p className="App-intro">
-          Please implement the required code for the assignment.
-        </p>
+        <Link to='/'  > Home </Link>
+        <Link to='/login'  > Login </Link>
+        <Link to='/register' > Register </Link>
+        <Route path='/' component={Home} ></Route>
+        <Route path='/login' component={Login}></Route>
+        <Route path='/register' component={Register}></Route>
       </div>
     );
   }
