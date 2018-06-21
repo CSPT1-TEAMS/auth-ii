@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const User = require('../users/User');
-const makeToken = require('./jwt');
+const { makeToken } = require('./jwt');
 
 router.post('/register', function(req, res) {
   User.create(req.body)

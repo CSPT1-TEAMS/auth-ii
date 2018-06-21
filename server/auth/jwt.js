@@ -13,10 +13,22 @@ const makeToken = user => {
   return jwt.sign(payload, SECRET, options)
 }
 
-const verifyToken = () => {
-    pass
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.sendStatus(401)
+  }
+  jwt.verify(token, SECRET, (err, payload) => {
+    if (err) {
+      return res.sendStatus(401)
+    }
+    req.payload = payload;
+    next()
+  })
+    
 }
 
 module.exports = {
   makeToken,
+  verifyToken
 }

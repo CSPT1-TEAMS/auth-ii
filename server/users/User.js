@@ -34,8 +34,6 @@ userSchema.pre('save', function(next) {
 });
 
 userSchema.methods.validatePassword = function(passwordGuess) {
-  let compare = '';
-  console.log(this.password === '$2b$10$wRvq2oumTxmhg66MVtLcp.w5o7O6LqGGlzrnX.8XUuFwlqrGw4O4S');
   return bcrypt.compare(passwordGuess, this.password);
 };
 
