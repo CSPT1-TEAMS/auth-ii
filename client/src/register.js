@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
 
-
-
 class Register extends Component {
+    constructor(){
+        super();
+        this.state = {
+
+        }
+    }
+
+
+
     render() {
         return(
-            <div> HELLO HOME
+            <div>
+                <form>
+            <input placeholder = "username"/> 
+            <input placeholder = "password"/> 
+            <input placeholder = "race"/>
+               </form>
             </div>
         )
     }
