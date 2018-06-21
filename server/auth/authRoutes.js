@@ -5,9 +5,13 @@ const User = require('../users/User');
 router.post('/register', function(req, res) {
   User.create(req.body)
     .then(({ username, race }) => {
-      res.status(201).json({ username, race });
+      const token = createToken(req.body)
+      res.status(201).json({ username, race, token });
     })
-    .catch(err => res.status(500).json(err));
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    })
 });
 
 router.post('/login', function(req, res) {
@@ -21,6 +25,7 @@ router.post('/login', function(req, res) {
       user.validatePassword(password)
         .then(validatedUser => {
           if(validatedUser) {
+            console.log(user)
             const token = createToken(user)
             res.status(201).json({ user, token })
           } else {
