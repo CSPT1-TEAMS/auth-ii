@@ -1,10 +1,14 @@
-const express = require('express');
+const express = require('express')
+const mongoose = require('mongoose')
+const server = express()
+const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
+const routes = require('./_config/routes')
+const restrictedRoutes = require('./auth/authRoutes')
 
 const db = require('./_config/db');
 const setupMiddleware = require('./_config/middleware');
 const setupRoutes = require('./_config/routes');
-
-const server = express();
 
 setupMiddleware(server);
 setupRoutes(server);
