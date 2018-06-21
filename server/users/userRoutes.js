@@ -1,10 +1,12 @@
 const router = require('express').Router();
+const verify = require('../auth/authHelper')
 
 const User = require('./User');
 
 
 //put in verify middleware 
-router.get('/', (req, res) => {
+router.get('/',verify, (req, res) => {
+  console.log(req)
   User.find()
     .select('-password')
     .then(users => {

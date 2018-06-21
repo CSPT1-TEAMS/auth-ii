@@ -29,15 +29,13 @@ return jwt.sign(payload, SECRET , options)
 
 //If token is valid call next,otherwise res send http error
 const verifyToken = (req,res,next) => {
-  let session =  req.headers.session
+  let session = req.headers.authorization
   let token = jwt.verify(session,SECRET)
   if (!token){
     res.sendStatus(401)
   }
   next()
-
   //secret is avail here
-
 }
 
 
@@ -48,9 +46,7 @@ router.post('/register', function(req, res) {
         username,
         race,
       }
-
-      // we destructure the username and race to avoid returning the hashed password
-
+      // we destructure the username and race to avoid returning the hashed passwo
       // then we assemble a new object and return it
       let token = jwt.sign(payload, SECRET, {expiresIn: '24hr'})
 
