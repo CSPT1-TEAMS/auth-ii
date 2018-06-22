@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
 const User = require('../users/User');
+const {makeToken, verifyToken} = require('./authFunctions')
 
 router.post('/register', function(req, res) {
   User.create(req.body)
@@ -20,7 +21,8 @@ router.post('/login', (req,res) => {
     user.validatePassword(password)
       .then((isMatch) => {
         if(isMatch) {
-          res.status(200).json({message: `welcome ${user.username}`})
+          const token = makeToken(user)
+          res.status(200).json({user, token})
         } else {
           res.sendStatus(401)
         }
@@ -32,5 +34,16 @@ router.post('/login', (req,res) => {
   .catch((error) => {
     res.status(500).json(error)
   })
+})
+
+router.get('/token', verifyToken, (req, res) => {
+  const {jwtpayload} = req;
+  User.findById(jwtpayload.sub)
+    .then((user) => {
+      res.status(200).json(user)
+    })
+    .catch((error) => {
+      res.sendStatus(500)
+    })
 })
 module.exports = router;
