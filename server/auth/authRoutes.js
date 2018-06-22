@@ -16,6 +16,7 @@ router.post('/register', function(req, res) {
 
 router.post('/login', function(req, res) {
   const { username, password } = req.body;
+  console.log('HERE', username, password);
   User.findOne({username})
     .then(user => {
       user.validatePassword(password)

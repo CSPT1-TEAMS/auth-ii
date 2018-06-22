@@ -25,7 +25,6 @@ const verifyToken = (req, res, next) => {
     req.payload = payload;
     next()
   })
-    
 }
 
 module.exports = {
