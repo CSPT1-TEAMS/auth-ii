@@ -1,22 +1,8 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const SECRET = 'SECRET COOKIE MONSTER'
-
+const { makeToken } = require('./authFunc');
 const User = require('../users/User');
-
-const makeToken = (user) => {
-  const payload = {
-    sub: user._id,
-    name: user.username,
-    race: user.race
-  }
-  const options = {
-    expiresIn: '24h'
-  }
-  return jwt.sign(payload, SECRET, options)
-}
-
-
 
 router.post('/register', (req, res) => {
   User.create(req.body)

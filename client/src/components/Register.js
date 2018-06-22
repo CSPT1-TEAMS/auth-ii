@@ -36,7 +36,7 @@ class Register extends Component {
         axios.post('http://localhost:5500/api/auth/register', this.state)
             .then(user => {
                 const token = makeToken(user);
-                console.log('DATA', token);
+                console.log('TOKEN', token);
                 localStorage.setItem('token', token)
                 this.props.history.push('/users')
             })
