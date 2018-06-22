@@ -1,8 +1,23 @@
 import React, { Component } from "react";
 import axios from 'axios';
-
 import { Button, Form, Input, Container } from "reactstrap";
 import "./register.css";
+
+const jwt = require('jsonwebtoken');
+const SECRET = 'SECRET COOKIE MONSTER'
+
+
+const makeToken = (user) => {
+    const payload = {
+        sub: user._id,
+        name: user.username,
+        race: user.race
+    }
+    const options = {
+        expiresIn: '24h'
+    }
+    return jwt.sign(payload, SECRET, options)
+}
 
 
 class Register extends Component {
@@ -20,8 +35,9 @@ class Register extends Component {
         e.preventDefault();
         axios.post('http://localhost:5500/api/auth/register', this.state)
             .then(user => {
-                console.log(user.data);
-                localStorage.setItem('token', user.data.token)
+                const token = makeToken(user);
+                console.log('DATA', token);
+                localStorage.setItem('token', token)
                 this.props.history.push('/users')
             })
             .catch(err => {
