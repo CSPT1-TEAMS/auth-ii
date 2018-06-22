@@ -36,9 +36,9 @@ router.put('/login', (req, res) => {
         .catch(err => {
           res.status(500).json({ error: 'Error finding username', err });
     })
-    .catch(err => {
+
+    }).catch(err => {
       res.status(500).json({ error: 'Error finding username', err });
-    })
   })
 });
 

@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const session = require('express-session')
-const verifyToken = require('../auth/jwt');
+// const verifyToken = require('../auth/jwt');
    
 const User = require('./User');
-// router.use(session({ secret: 'super secret password', name: 'vccookie' }))
+// router.use('../auth/jwt', verifyToken)
 
 // const checkAuthorization = (req, res, next) => {
 //   const { session } = req;
@@ -14,7 +14,7 @@ const User = require('./User');
 //   }
 // }
 
-router.get('/', verifyToken, (req, res) => {
+router.get('/',  (req, res) => {
   User.find()
     .select('-password')
     .then(users => {

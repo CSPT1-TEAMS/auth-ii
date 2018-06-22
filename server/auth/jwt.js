@@ -22,12 +22,21 @@ const verifyToken = (req, res, next)  => {
 //get auth header
 ///make sure it exists
 //if doesnt, send error.
+
+const token = req.headers.authorization;
+if(token === undefined){
+    res.sendStatus(401);
+    return;
+}
+
+jwt.verify(token, SECRET, (err, payload)  => {
+    console.log(payload)
+})
+
 ///if it does decodes
     //make sure it decodes
     //pass decoded payoud on the req
-const token = req.headers.authorization;
-console.log(token);
 
 }
 
-module.exports = { makeToken, verifyToken } 
+module.exports =  {makeToken, verifyToken}
