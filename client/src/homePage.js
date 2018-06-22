@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 
-// Doesn't need to render anything, just LINK to the page
-// LINK to props
 
 const HomePage = (props) => {
     return (
