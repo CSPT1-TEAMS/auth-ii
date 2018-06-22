@@ -20,6 +20,7 @@ class Register extends Component {
         e.preventDefault();
         axios.post('http://localhost:5500/api/auth/register', this.state)
             .then(user => {
+                console.log(user.data);
                 localStorage.setItem('token', user.data.token)
                 this.props.history.push('/users')
             })

@@ -8,6 +8,8 @@ class Users extends Component {
     }
     componentDidMount() {
         const token = localStorage.getItem('token');
+        if (token === null) return;
+        console.log(token);
         axios.get('http://localhost:5500/api/users', { headers: { 'Authorization': token } })
             .then(response => {
                 this.setState({ users: response.data })

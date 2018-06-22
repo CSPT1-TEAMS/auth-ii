@@ -5,7 +5,7 @@ const User = require('./User');
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization;
   (console.log('TOKEN', token))
-  if (token === undefined) {
+  if (token === null) {
     res.status(401).json({ msg: "You shall not pass" });
     return;
   }
