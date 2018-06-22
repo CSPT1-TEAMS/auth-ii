@@ -4,6 +4,7 @@ import { Route, Link } from 'react-router-dom';
 import Login from './Login';
 import Users from './Users';
 import Register from './Register';
+import axios from 'axios';
 import './App.css';
 
 class App extends Component {
