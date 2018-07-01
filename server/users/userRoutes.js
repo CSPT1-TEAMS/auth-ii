@@ -1,8 +1,9 @@
 const router = require('express').Router();
 
 const User = require('./User');
+const { verifyWebToken } = require('../auth/authMethods');
 
-router.get('/', (req, res) => {
+router.get('/', verifyWebToken, (req, res) => {
   User.find()
     .select('-password')
     .then(users => {

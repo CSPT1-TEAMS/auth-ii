@@ -12,10 +12,17 @@ const generateWebToken = (user) => {
   return jwt.sign(payload, SECRET, options)
 }
 
-// const verifyToken = (token) => {
-//     jwt.verify(token, SECRET, (err, decoded) => {
+const verifyWebToken = (req, res, next) => {
+    const token = req.headers.authorization
+    jwt.verify(token, SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({
+                msg: "Invalid Token"
+            })
+        } else {
+            return next()
+        }
+    })
+}
 
-//     })
-// }
-
-moudle.exports = { generateWebToken }
+module.exports = { generateWebToken, verifyWebToken }

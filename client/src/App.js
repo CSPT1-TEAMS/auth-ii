@@ -1,19 +1,20 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { Component, Fragment } from 'react';
+import { Route } from 'react-router-dom';
 import './App.css';
+import Home from './components/Home';
+import Signup from './components/Signup';
+import Signin from './components/Signin';
+import Users from './components/Users';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Authentication using JWTs</h1>
-        </header>
-        <p className="App-intro">
-          Please implement the required code for the assignment.
-        </p>
-      </div>
+      <Fragment>
+        <Route path="/" component={Home} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/signin" component={Signin} />
+        <Route path="/users" component={Users} />
+      </Fragment>
     );
   }
 }
