@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
-export default class Home extends Component {
-    constructor() {
-        super()
+class Home extends Component {
+    constructor(props) {
+        super(props)
         this.state = {}
     }
 
@@ -25,3 +26,5 @@ export default class Home extends Component {
         )
     }
 }
+
+export default withRouter(Home)
